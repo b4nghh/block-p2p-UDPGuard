@@ -1,23 +1,36 @@
 ```markdown
 # BitTorrent Traffic Blocker using iptables + ipset
 
-This Bash script is designed to **block BitTorrent traffic** on Linux systems using iptables and ipset. It employs **Deep Packet Inspection (DPI)** to detect BitTorrent patterns and temporarily blocks suspicious IP addresses.
+# NO BLOCK GAMMING
+
+This Bash script is designed to **block BitTorrent traffic** on Linux systems using iptables and ipset. It employs **Deep Packet Inspection (DPI)** to detect BitTorrent patterns and temporarily block suspicious IP addresses. **Importantly, it does not block any ports**—it only monitors the port range `6881:65535` for BitTorrent-related traffic, leaving all online gaming ports completely unaffected.
 
 ## Features
 
-- **Deep Packet Inspection:** Scans the first 1500 bytes of TCP/UDP packets for BitTorrent-related patterns.
-- **Dynamic Blocking:** Automatically adds suspicious IPs to an ipset, which is used to block traffic.
-- **Intelligent Exclusions:** Skips blocking for server local IPs, known DNS servers, and specific IP ranges (e.g., `10.9.0.0/22` and `10.8.0.0/22`).
-- **Multi-Interface Monitoring:** Monitors multiple interfaces (e.g., `tun0`, `tun1`, `eth0`) and automatically includes the default interface.
-- **Automatic Cleanup:** Removes iptables rules and destroys the ipset on termination.
-- **Customizable Settings:** Adjust block duration, maximum ipset entries, port ranges, and more.
+- **Deep Packet Inspection (DPI):**  
+  Inspects the first 1500 bytes of TCP/UDP packets on the port range `6881:65535` to detect BitTorrent patterns without blocking the ports.
+
+- **Dynamic Blocking:**  
+  Automatically adds suspicious IPs to an ipset, temporarily blocking them if BitTorrent traffic is detected.
+
+- **Gaming Traffic Unaffected:**  
+  The script solely monitors the specified port range for BitTorrent activity. **Gaming ports remain open and fully functional**.
+
+- **Intelligent Exclusions:**  
+  Excludes local server IPs, known DNS servers, and specific IP ranges to avoid unintended disruptions.
+
+- **Multi-Interface Monitoring:**  
+  Automatically detects and monitors multiple network interfaces, including the default interface, ensuring comprehensive traffic supervision.
+
+- **Automatic Cleanup:**  
+  On termination, the script cleans up iptables rules and destroys the ipset, restoring the system’s original configuration.
 
 ## Requirements
 
-- **OS:** Linux (Debian/Ubuntu or similar)
+- **Operating System:** Linux (Debian/Ubuntu or similar)
 - **Permissions:** Must be run as `root`
 - **Dependencies:** `iptables`, `ipset`, `ipcalc`, `rsyslog`, `grep`, `awk`, `coreutils`
-- **Kernel Module:** `xt_string` (for string matching in iptables)
+- **Kernel Module:** `xt_string` (required for string matching in iptables)
 
 ## Installation
 
