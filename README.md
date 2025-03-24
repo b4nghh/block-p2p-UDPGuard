@@ -117,7 +117,5 @@ Contributions are welcome! Fork the repository and submit pull requests with you
 
 Distributed under the [MIT License](LICENSE).
 
-## Security Notice
-
-**Warning:** This script modifies firewall rules in real-time. Ensure you understand the security implications and have recovery options available. Test in a safe environment before using in production.
-```
+Security Notice
+Warning: This script modifies firewall rules in real-time. Ensure you understand the security implications and have recovery options available. Test in a safe environment before using in production.
