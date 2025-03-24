@@ -1,6 +1,14 @@
 ```markdown
 # BitTorrent Traffic Blocker using iptables + ipset
 
+# Advanced Overview and Operational Considerations
+
+This script was designed with a dual objective: **to dynamically block BitTorrent traffic** while **not limiting the user experience**. It was designed to block only torrent traffic (thus avoiding DMCA-related issues) without affecting other services, such as gaming or general browsing.
+
+The mechanism is based on advanced **Deep Packet Inspection (DPI)** techniques. It scans the first 1500 bytes of each TCP/UDP packet in the port range `6881:65535`, looking for patterns and signatures characteristic of BitTorrent traffic. This method is effective even when clients (such as uTorrent) partially encrypt traffic, as many still expose enough information during the handshake or initial negotiations to be identified. Thus, the script progressively blocks each IP address involved in the BitTorrent packet exchange; Once all routes are blocked, the download is interrupted (0 bytes transferred), and the offending user's IP is eventually blocked.
+
+> Thanks for sharing your experiences, @UnknownDev2018. The script has proven to be very comprehensive, as even with clients that encrypt traffic, most BitTorrent connections can be detected. However, if a client evades detection or if traffic is redirected entirely over HTTPS, the effectiveness of the string matching could be reduced, as the inspected content would be encrypted and not display the usual signatures.
+
 # NO BLOCK GAMMING
 
 This Bash script is designed to **block BitTorrent traffic** on Linux systems using iptables and ipset. It employs **Deep Packet Inspection (DPI)** to detect BitTorrent patterns and temporarily block suspicious IP addresses. **Importantly, it does not block any ports**—it only monitors the port range `6881:65535` for BitTorrent-related traffic, leaving all online gaming ports completely unaffected.
