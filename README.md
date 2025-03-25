@@ -46,7 +46,7 @@ Update your system and install the required packages:
 ```bash
 sudo apt update
 sudo apt upgrade -y
-sudo apt install -y iptables ipset ipcalc rsyslog grep awk coreutils
+sudo apt install -y iptables ipset ipcalc rsyslog grep coreutils
 
 Load the `xt_string` module if it’s not already loaded:
 
